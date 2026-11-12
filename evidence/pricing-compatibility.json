@@ -1,0 +1,39 @@
+{
+  "at": "2026-11-12T11:18:19.435Z",
+  "legacy": {
+    "id": 1,
+    "name": "Lenovo ThinkPad E14",
+    "category": "Laptops",
+    "price": 8499,
+    "image": "https://placehold.co/600x400?text=ThinkPad+E14",
+    "description": "Reliable 14-inch business laptop with Intel Core i5, 16GB RAM and 512GB SSD."
+  },
+  "modern": {
+    "id": 1,
+    "name": "Lenovo ThinkPad E14",
+    "category": "Laptops",
+    "price": {
+      "amount": 8499,
+      "currency": "MAD"
+    },
+    "image": "https://placehold.co/600x400?text=ThinkPad+E14",
+    "description": "Reliable 14-inch business laptop with Intel Core i5, 16GB RAM and 512GB SSD."
+  },
+  "euro": {
+    "id": 1,
+    "name": "Lenovo ThinkPad E14",
+    "category": "Laptops",
+    "price": {
+      "amount": 799.9,
+      "currency": "EUR"
+    },
+    "image": "https://placehold.co/600x400?text=ThinkPad+E14",
+    "description": "Reliable 14-inch business laptop with Intel Core i5, 16GB RAM and 512GB SSD."
+  },
+  "validJsonDoesNotMeanSameContract": true,
+  "oldSchemaRejectsObjectPrice": true,
+  "oldNumericConsumerRejectsObjectPrice": true,
+  "existingNumericConsumerStillWorks": true,
+  "legacyOrderCurrency": "MAD",
+  "foreignPriceLists": "Fixed demonstration price lists; not live FX and not foreign-currency checkout"
+}

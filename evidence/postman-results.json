@@ -1,0 +1,763 @@
+{
+  "at": "2026-11-12T11:18:21.341Z",
+  "stats": {
+    "iterations": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "items": {
+      "total": 47,
+      "pending": 0,
+      "failed": 0
+    },
+    "scripts": {
+      "total": 94,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequests": {
+      "total": 47,
+      "pending": 0,
+      "failed": 0
+    },
+    "requests": {
+      "total": 47,
+      "pending": 0,
+      "failed": 0
+    },
+    "tests": {
+      "total": 47,
+      "pending": 0,
+      "failed": 0
+    },
+    "assertions": {
+      "total": 106,
+      "pending": 0,
+      "failed": 0
+    },
+    "testScripts": {
+      "total": 47,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequestScripts": {
+      "total": 47,
+      "pending": 0,
+      "failed": 0
+    }
+  },
+  "failures": [],
+  "executions": [
+    {
+      "name": "Health auth",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Health catalog",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Health inventory",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Health orders",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Health payments",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Health shipping",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Inscription",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Connexion",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Identite",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Mauvais mot de passe",
+      "status": 401,
+      "assertions": [
+        {
+          "assertion": "HTTP 401",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Catalog v1 liste",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Prix historique numerique",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Catalog v1 produit",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Prix historique 8499 MAD",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Catalog v1 inconnu",
+      "status": 404,
+      "assertions": [
+        {
+          "assertion": "HTTP 404",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Catalog v2 MAD",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Devise demandee",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Catalog v2 EUR",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Devise demandee",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Catalog v2 USD",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Devise demandee",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Catalog v2 liste EUR",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Toutes les devises sont EUR",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Catalog v2 MAD par defaut",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "MAD implicite",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Devise refusee",
+      "status": 400,
+      "assertions": [
+        {
+          "assertion": "HTTP 400",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Catalog v2 inconnu",
+      "status": 404,
+      "assertions": [
+        {
+          "assertion": "HTTP 404",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Stock initial",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Disponibilite",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Reservation publique interdite",
+      "status": 403,
+      "assertions": [
+        {
+          "assertion": "HTTP 403",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Commande v1",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Orders v1 reste en MAD numerique",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Creation repetee",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Meme commande",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Liste commandes",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Lire commande",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Forcer PAID interdit",
+      "status": 403,
+      "assertions": [
+        {
+          "assertion": "HTTP 403",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Paiement",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Paiements utilisateur",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Paiement commande",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Preparation transport",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Liste expeditions",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Expedition commande",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Transport SHIPPED",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Transport IN_TRANSIT",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Transport DELIVERED",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Commande livree",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Etat DELIVERED",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Annulation apres livraison refusee",
+      "status": 409,
+      "assertions": [
+        {
+          "assertion": "HTTP 409",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Seconde commande",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Paiement seconde commande",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Annulation remboursee",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Annulation repetee",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Remboursement verifie",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Remboursement simule",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Stock restaure une seule fois",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        },
+        {
+          "assertion": "Une seule commande consomme du stock",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Deconnexion",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "HTTP 200",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "Session revoquee",
+      "status": 401,
+      "assertions": [
+        {
+          "assertion": "HTTP 401",
+          "passed": true
+        },
+        {
+          "assertion": "Schema OpenAPI",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "guardChecks": [
+    "wrong Content-Type rejected with 415",
+    "invalid JSON rejected with 400"
+  ]
+}

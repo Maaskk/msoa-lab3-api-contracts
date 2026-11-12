@@ -1,0 +1,1571 @@
+{
+  "info": {
+    "name": "LAB3 - Contrats et compatibilite",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "authUrl",
+      "value": "http://127.0.0.1:8081"
+    },
+    {
+      "key": "catalogUrl",
+      "value": "http://127.0.0.1:8082"
+    },
+    {
+      "key": "inventoryUrl",
+      "value": "http://127.0.0.1:8083"
+    },
+    {
+      "key": "ordersUrl",
+      "value": "http://127.0.0.1:8084"
+    },
+    {
+      "key": "paymentsUrl",
+      "value": "http://127.0.0.1:8085"
+    },
+    {
+      "key": "shippingUrl",
+      "value": "http://127.0.0.1:8086"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if (!pm.collectionVariables.get(\"runId\")) { const id=String(Date.now()); pm.collectionVariables.set(\"runId\",id); pm.collectionVariables.set(\"runEmail\",\"lab3-\"+id+\"@example.test\"); }"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Health auth",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"service\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"UP\"]}}, \"required\": [\"service\", \"status\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{authUrl}}/health"
+      }
+    },
+    {
+      "name": "Health catalog",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"service\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"UP\"]}}, \"required\": [\"service\", \"status\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/health"
+      }
+    },
+    {
+      "name": "Health inventory",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"service\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"UP\"]}}, \"required\": [\"service\", \"status\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{inventoryUrl}}/health"
+      }
+    },
+    {
+      "name": "Health orders",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"service\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"UP\"]}}, \"required\": [\"service\", \"status\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/health"
+      }
+    },
+    {
+      "name": "Health payments",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"service\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"UP\"]}}, \"required\": [\"service\", \"status\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{paymentsUrl}}/health"
+      }
+    },
+    {
+      "name": "Health shipping",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"service\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"UP\"]}}, \"required\": [\"service\", \"status\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{shippingUrl}}/health"
+      }
+    },
+    {
+      "name": "Inscription",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"name\": {\"type\": \"string\"}, \"email\": {\"type\": \"string\", \"format\": \"email\"}, \"role\": {\"type\": \"string\", \"enum\": [\"CUSTOMER\", \"SYSTEM\"]}}, \"required\": [\"id\", \"name\", \"email\", \"role\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{authUrl}}/api/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Utilisateur LAB3\", \"email\": \"{{runEmail}}\", \"password\": \"lab3-test-password\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Connexion",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"user\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"name\": {\"type\": \"string\"}, \"email\": {\"type\": \"string\", \"format\": \"email\"}, \"role\": {\"type\": \"string\", \"enum\": [\"CUSTOMER\", \"SYSTEM\"]}}, \"required\": [\"id\", \"name\", \"email\", \"role\"]}, \"token\": {\"type\": \"string\"}}, \"required\": [\"user\", \"token\"]}));",
+              "const j=pm.response.json(); pm.collectionVariables.set(\"token\",j.token); pm.collectionVariables.set(\"userId\",j.user.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{authUrl}}/api/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"{{runEmail}}\", \"password\": \"lab3-test-password\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Identite",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"name\": {\"type\": \"string\"}, \"email\": {\"type\": \"string\", \"format\": \"email\"}, \"role\": {\"type\": \"string\", \"enum\": [\"CUSTOMER\", \"SYSTEM\"]}}, \"required\": [\"id\", \"name\", \"email\", \"role\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{authUrl}}/api/auth/me"
+      }
+    },
+    {
+      "name": "Mauvais mot de passe",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 401\", () => pm.response.to.have.status(401));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"message\": {\"type\": \"string\"}, \"requestId\": {\"type\": \"string\", \"format\": \"uuid\"}}, \"required\": [\"message\", \"requestId\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{authUrl}}/api/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"{{runEmail}}\", \"password\": \"wrong\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Catalog v1 liste",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"category\": {\"type\": \"string\"}, \"image\": {\"type\": \"string\"}, \"description\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"id\", \"name\", \"price\", \"category\", \"image\", \"description\"]}}));",
+              "pm.test(\"Prix historique numerique\", () => pm.expect(pm.response.json()[0].price).to.be.a(\"number\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/products"
+      }
+    },
+    {
+      "name": "Catalog v1 produit",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"category\": {\"type\": \"string\"}, \"image\": {\"type\": \"string\"}, \"description\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"id\", \"name\", \"price\", \"category\", \"image\", \"description\"]}));",
+              "pm.test(\"Prix historique 8499 MAD\", () => pm.expect(pm.response.json().price).to.equal(8499));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/products/1"
+      }
+    },
+    {
+      "name": "Catalog v1 inconnu",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"message\": {\"type\": \"string\"}, \"requestId\": {\"type\": \"string\", \"format\": \"uuid\"}}, \"required\": [\"message\", \"requestId\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/products/99999"
+      }
+    },
+    {
+      "name": "Catalog v2 MAD",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"category\": {\"type\": \"string\"}, \"image\": {\"type\": \"string\"}, \"description\": {\"type\": \"string\"}, \"price\": {\"type\": \"object\", \"properties\": {\"amount\": {\"type\": \"number\", \"minimum\": 0}, \"currency\": {\"type\": \"string\", \"enum\": [\"MAD\", \"EUR\", \"USD\"]}}, \"required\": [\"amount\", \"currency\"], \"additionalProperties\": false}}, \"required\": [\"id\", \"name\", \"price\", \"category\", \"image\", \"description\"]}));",
+              "pm.test(\"Devise demandee\", () => pm.expect(pm.response.json().price.currency).to.equal(\"MAD\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/api/v2/products/1?currency=MAD"
+      }
+    },
+    {
+      "name": "Catalog v2 EUR",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"category\": {\"type\": \"string\"}, \"image\": {\"type\": \"string\"}, \"description\": {\"type\": \"string\"}, \"price\": {\"type\": \"object\", \"properties\": {\"amount\": {\"type\": \"number\", \"minimum\": 0}, \"currency\": {\"type\": \"string\", \"enum\": [\"MAD\", \"EUR\", \"USD\"]}}, \"required\": [\"amount\", \"currency\"], \"additionalProperties\": false}}, \"required\": [\"id\", \"name\", \"price\", \"category\", \"image\", \"description\"]}));",
+              "pm.test(\"Devise demandee\", () => pm.expect(pm.response.json().price.currency).to.equal(\"EUR\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/api/v2/products/1?currency=EUR"
+      }
+    },
+    {
+      "name": "Catalog v2 USD",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"category\": {\"type\": \"string\"}, \"image\": {\"type\": \"string\"}, \"description\": {\"type\": \"string\"}, \"price\": {\"type\": \"object\", \"properties\": {\"amount\": {\"type\": \"number\", \"minimum\": 0}, \"currency\": {\"type\": \"string\", \"enum\": [\"MAD\", \"EUR\", \"USD\"]}}, \"required\": [\"amount\", \"currency\"], \"additionalProperties\": false}}, \"required\": [\"id\", \"name\", \"price\", \"category\", \"image\", \"description\"]}));",
+              "pm.test(\"Devise demandee\", () => pm.expect(pm.response.json().price.currency).to.equal(\"USD\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/api/v2/products/1?currency=USD"
+      }
+    },
+    {
+      "name": "Catalog v2 liste EUR",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"category\": {\"type\": \"string\"}, \"image\": {\"type\": \"string\"}, \"description\": {\"type\": \"string\"}, \"price\": {\"type\": \"object\", \"properties\": {\"amount\": {\"type\": \"number\", \"minimum\": 0}, \"currency\": {\"type\": \"string\", \"enum\": [\"MAD\", \"EUR\", \"USD\"]}}, \"required\": [\"amount\", \"currency\"], \"additionalProperties\": false}}, \"required\": [\"id\", \"name\", \"price\", \"category\", \"image\", \"description\"]}}));",
+              "pm.test(\"Toutes les devises sont EUR\", () => pm.expect(pm.response.json().every(x=>x.price.currency===\"EUR\")).to.equal(true));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/api/v2/products?currency=EUR"
+      }
+    },
+    {
+      "name": "Catalog v2 MAD par defaut",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"category\": {\"type\": \"string\"}, \"image\": {\"type\": \"string\"}, \"description\": {\"type\": \"string\"}, \"price\": {\"type\": \"object\", \"properties\": {\"amount\": {\"type\": \"number\", \"minimum\": 0}, \"currency\": {\"type\": \"string\", \"enum\": [\"MAD\", \"EUR\", \"USD\"]}}, \"required\": [\"amount\", \"currency\"], \"additionalProperties\": false}}, \"required\": [\"id\", \"name\", \"price\", \"category\", \"image\", \"description\"]}));",
+              "pm.test(\"MAD implicite\",()=>pm.expect(pm.response.json().price.currency).to.equal(\"MAD\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/api/v2/products/1"
+      }
+    },
+    {
+      "name": "Devise refusee",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"message\": {\"type\": \"string\"}, \"requestId\": {\"type\": \"string\", \"format\": \"uuid\"}}, \"required\": [\"message\", \"requestId\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/api/v2/products/1?currency=BTC"
+      }
+    },
+    {
+      "name": "Catalog v2 inconnu",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"message\": {\"type\": \"string\"}, \"requestId\": {\"type\": \"string\", \"format\": \"uuid\"}}, \"required\": [\"message\", \"requestId\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{catalogUrl}}/api/v2/products/99999"
+      }
+    },
+    {
+      "name": "Stock initial",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"stock\": {\"type\": \"integer\", \"minimum\": 0}}, \"required\": [\"productId\", \"stock\"]}));",
+              "pm.collectionVariables.set(\"initialStock\",pm.response.json().stock);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{inventoryUrl}}/api/inventory/1"
+      }
+    },
+    {
+      "name": "Disponibilite",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"available\": {\"type\": \"boolean\"}}, \"required\": [\"available\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{inventoryUrl}}/api/inventory/check",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"items\": [{\"productId\": 1, \"quantity\": 1}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Reservation publique interdite",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"message\": {\"type\": \"string\"}, \"requestId\": {\"type\": \"string\", \"format\": \"uuid\"}}, \"required\": [\"message\", \"requestId\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{inventoryUrl}}/api/inventory/reserve",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"items\": [{\"productId\": 1, \"quantity\": 1}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Commande v1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"customer\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"quantity\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"productId\", \"quantity\", \"name\", \"price\"]}}, \"total\": {\"type\": \"number\", \"minimum\": 0}, \"status\": {\"type\": \"string\", \"enum\": [\"CREATING\", \"REJECTED\", \"PENDING_PAYMENT\", \"PAID\", \"CANCELLING\", \"CANCELLED\", \"SHIPPED\", \"DELIVERED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"userId\", \"customer\", \"items\", \"total\", \"status\", \"createdAt\"]}));",
+              "pm.collectionVariables.set(\"orderId\",pm.response.json().id); pm.test(\"Orders v1 reste en MAD numerique\",()=>{pm.expect(pm.response.json().total).to.equal(8499);pm.expect(pm.response.json().items[0].price).to.be.a(\"number\");});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Idempotency-Key",
+            "value": "checkout-{{runId}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"userId\": \"{{userId}}\", \"customer\": {\"name\": \"Client LAB3\", \"address\": \"Adresse de demonstration\", \"city\": \"Casablanca\"}, \"items\": [{\"productId\": 1, \"quantity\": 1}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Creation repetee",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"customer\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"quantity\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"productId\", \"quantity\", \"name\", \"price\"]}}, \"total\": {\"type\": \"number\", \"minimum\": 0}, \"status\": {\"type\": \"string\", \"enum\": [\"CREATING\", \"REJECTED\", \"PENDING_PAYMENT\", \"PAID\", \"CANCELLING\", \"CANCELLED\", \"SHIPPED\", \"DELIVERED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"userId\", \"customer\", \"items\", \"total\", \"status\", \"createdAt\"]}));",
+              "pm.test(\"Meme commande\",()=>pm.expect(pm.response.json().id).to.equal(pm.collectionVariables.get(\"orderId\")));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Idempotency-Key",
+            "value": "checkout-{{runId}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"userId\": \"{{userId}}\", \"customer\": {\"name\": \"Client LAB3\", \"address\": \"Adresse de demonstration\", \"city\": \"Casablanca\"}, \"items\": [{\"productId\": 1, \"quantity\": 1}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Liste commandes",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"customer\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"quantity\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"productId\", \"quantity\", \"name\", \"price\"]}}, \"total\": {\"type\": \"number\", \"minimum\": 0}, \"status\": {\"type\": \"string\", \"enum\": [\"CREATING\", \"REJECTED\", \"PENDING_PAYMENT\", \"PAID\", \"CANCELLING\", \"CANCELLED\", \"SHIPPED\", \"DELIVERED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"userId\", \"customer\", \"items\", \"total\", \"status\", \"createdAt\"]}}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders"
+      }
+    },
+    {
+      "name": "Lire commande",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"customer\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"quantity\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"productId\", \"quantity\", \"name\", \"price\"]}}, \"total\": {\"type\": \"number\", \"minimum\": 0}, \"status\": {\"type\": \"string\", \"enum\": [\"CREATING\", \"REJECTED\", \"PENDING_PAYMENT\", \"PAID\", \"CANCELLING\", \"CANCELLED\", \"SHIPPED\", \"DELIVERED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"userId\", \"customer\", \"items\", \"total\", \"status\", \"createdAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders/{{orderId}}"
+      }
+    },
+    {
+      "name": "Forcer PAID interdit",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"message\": {\"type\": \"string\"}, \"requestId\": {\"type\": \"string\", \"format\": \"uuid\"}}, \"required\": [\"message\", \"requestId\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders/{{orderId}}/status",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"status\": \"PAID\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Paiement",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"amount\": {\"type\": \"number\", \"minimum\": 0}, \"method\": {\"type\": \"string\", \"enum\": [\"CARD\", \"CASH\"]}, \"status\": {\"type\": \"string\", \"enum\": [\"SUCCESS\", \"REFUNDED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"amount\", \"method\", \"status\", \"createdAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{paymentsUrl}}/api/payments",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"orderId\": \"{{orderId}}\", \"method\": \"CARD\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Paiements utilisateur",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"amount\": {\"type\": \"number\", \"minimum\": 0}, \"method\": {\"type\": \"string\", \"enum\": [\"CARD\", \"CASH\"]}, \"status\": {\"type\": \"string\", \"enum\": [\"SUCCESS\", \"REFUNDED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"amount\", \"method\", \"status\", \"createdAt\"]}}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{paymentsUrl}}/api/payments"
+      }
+    },
+    {
+      "name": "Paiement commande",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"amount\": {\"type\": \"number\", \"minimum\": 0}, \"method\": {\"type\": \"string\", \"enum\": [\"CARD\", \"CASH\"]}, \"status\": {\"type\": \"string\", \"enum\": [\"SUCCESS\", \"REFUNDED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"amount\", \"method\", \"status\", \"createdAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{paymentsUrl}}/api/payments/order/{{orderId}}"
+      }
+    },
+    {
+      "name": "Preparation transport",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"address\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"trackingNumber\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"PREPARING\", \"SHIPPED\", \"IN_TRANSIT\", \"DELIVERED\", \"CANCELLED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}, \"updatedAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"address\", \"trackingNumber\", \"status\", \"createdAt\", \"updatedAt\"]}));",
+              "pm.collectionVariables.set(\"shipmentId\",pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{shippingUrl}}/api/shipments",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"orderId\": \"{{orderId}}\", \"address\": {\"name\": \"Client LAB3\", \"address\": \"Adresse de demonstration\", \"city\": \"Casablanca\"}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Liste expeditions",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"address\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"trackingNumber\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"PREPARING\", \"SHIPPED\", \"IN_TRANSIT\", \"DELIVERED\", \"CANCELLED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}, \"updatedAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"address\", \"trackingNumber\", \"status\", \"createdAt\", \"updatedAt\"]}}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{shippingUrl}}/api/shipments"
+      }
+    },
+    {
+      "name": "Expedition commande",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"address\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"trackingNumber\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"PREPARING\", \"SHIPPED\", \"IN_TRANSIT\", \"DELIVERED\", \"CANCELLED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}, \"updatedAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"address\", \"trackingNumber\", \"status\", \"createdAt\", \"updatedAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{shippingUrl}}/api/shipments/order/{{orderId}}"
+      }
+    },
+    {
+      "name": "Transport SHIPPED",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"address\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"trackingNumber\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"PREPARING\", \"SHIPPED\", \"IN_TRANSIT\", \"DELIVERED\", \"CANCELLED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}, \"updatedAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"address\", \"trackingNumber\", \"status\", \"createdAt\", \"updatedAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{shippingUrl}}/api/shipments/{{shipmentId}}/status",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"status\": \"SHIPPED\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Transport IN_TRANSIT",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"address\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"trackingNumber\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"PREPARING\", \"SHIPPED\", \"IN_TRANSIT\", \"DELIVERED\", \"CANCELLED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}, \"updatedAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"address\", \"trackingNumber\", \"status\", \"createdAt\", \"updatedAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{shippingUrl}}/api/shipments/{{shipmentId}}/status",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"status\": \"IN_TRANSIT\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Transport DELIVERED",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"address\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"trackingNumber\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"PREPARING\", \"SHIPPED\", \"IN_TRANSIT\", \"DELIVERED\", \"CANCELLED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}, \"updatedAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"address\", \"trackingNumber\", \"status\", \"createdAt\", \"updatedAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{shippingUrl}}/api/shipments/{{shipmentId}}/status",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"status\": \"DELIVERED\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Commande livree",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"customer\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"quantity\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"productId\", \"quantity\", \"name\", \"price\"]}}, \"total\": {\"type\": \"number\", \"minimum\": 0}, \"status\": {\"type\": \"string\", \"enum\": [\"CREATING\", \"REJECTED\", \"PENDING_PAYMENT\", \"PAID\", \"CANCELLING\", \"CANCELLED\", \"SHIPPED\", \"DELIVERED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"userId\", \"customer\", \"items\", \"total\", \"status\", \"createdAt\"]}));",
+              "pm.test(\"Etat DELIVERED\",()=>pm.expect(pm.response.json().status).to.equal(\"DELIVERED\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders/{{orderId}}"
+      }
+    },
+    {
+      "name": "Annulation apres livraison refusee",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"message\": {\"type\": \"string\"}, \"requestId\": {\"type\": \"string\", \"format\": \"uuid\"}}, \"required\": [\"message\", \"requestId\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders/{{orderId}}/cancel"
+      }
+    },
+    {
+      "name": "Seconde commande",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"customer\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"quantity\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"productId\", \"quantity\", \"name\", \"price\"]}}, \"total\": {\"type\": \"number\", \"minimum\": 0}, \"status\": {\"type\": \"string\", \"enum\": [\"CREATING\", \"REJECTED\", \"PENDING_PAYMENT\", \"PAID\", \"CANCELLING\", \"CANCELLED\", \"SHIPPED\", \"DELIVERED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"userId\", \"customer\", \"items\", \"total\", \"status\", \"createdAt\"]}));",
+              "pm.collectionVariables.set(\"cancelId\",pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"userId\": \"{{userId}}\", \"customer\": {\"name\": \"Client LAB3\", \"address\": \"Adresse de demonstration\", \"city\": \"Casablanca\"}, \"items\": [{\"productId\": 1, \"quantity\": 1}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Paiement seconde commande",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"amount\": {\"type\": \"number\", \"minimum\": 0}, \"method\": {\"type\": \"string\", \"enum\": [\"CARD\", \"CASH\"]}, \"status\": {\"type\": \"string\", \"enum\": [\"SUCCESS\", \"REFUNDED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"amount\", \"method\", \"status\", \"createdAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{paymentsUrl}}/api/payments",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"orderId\": \"{{cancelId}}\", \"method\": \"CASH\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Annulation remboursee",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"customer\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"quantity\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"productId\", \"quantity\", \"name\", \"price\"]}}, \"total\": {\"type\": \"number\", \"minimum\": 0}, \"status\": {\"type\": \"string\", \"enum\": [\"CREATING\", \"REJECTED\", \"PENDING_PAYMENT\", \"PAID\", \"CANCELLING\", \"CANCELLED\", \"SHIPPED\", \"DELIVERED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"userId\", \"customer\", \"items\", \"total\", \"status\", \"createdAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders/{{cancelId}}/cancel"
+      }
+    },
+    {
+      "name": "Annulation repetee",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"customer\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\", \"minLength\": 1}, \"address\": {\"type\": \"string\", \"minLength\": 1}, \"city\": {\"type\": \"string\", \"minLength\": 1}}, \"required\": [\"name\", \"address\", \"city\"]}, \"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"quantity\": {\"type\": \"integer\", \"minimum\": 1}, \"name\": {\"type\": \"string\"}, \"price\": {\"type\": \"number\", \"minimum\": 0}}, \"required\": [\"productId\", \"quantity\", \"name\", \"price\"]}}, \"total\": {\"type\": \"number\", \"minimum\": 0}, \"status\": {\"type\": \"string\", \"enum\": [\"CREATING\", \"REJECTED\", \"PENDING_PAYMENT\", \"PAID\", \"CANCELLING\", \"CANCELLED\", \"SHIPPED\", \"DELIVERED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"userId\", \"customer\", \"items\", \"total\", \"status\", \"createdAt\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{ordersUrl}}/api/orders/{{cancelId}}/cancel"
+      }
+    },
+    {
+      "name": "Remboursement verifie",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"string\"}, \"orderId\": {\"type\": \"string\"}, \"userId\": {\"type\": \"string\"}, \"amount\": {\"type\": \"number\", \"minimum\": 0}, \"method\": {\"type\": \"string\", \"enum\": [\"CARD\", \"CASH\"]}, \"status\": {\"type\": \"string\", \"enum\": [\"SUCCESS\", \"REFUNDED\"]}, \"createdAt\": {\"type\": \"string\", \"format\": \"date-time\"}}, \"required\": [\"id\", \"orderId\", \"userId\", \"amount\", \"method\", \"status\", \"createdAt\"]}));",
+              "pm.test(\"Remboursement simule\",()=>pm.expect(pm.response.json().status).to.equal(\"REFUNDED\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{paymentsUrl}}/api/payments/order/{{cancelId}}"
+      }
+    },
+    {
+      "name": "Stock restaure une seule fois",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"productId\": {\"type\": \"integer\", \"minimum\": 1}, \"stock\": {\"type\": \"integer\", \"minimum\": 0}}, \"required\": [\"productId\", \"stock\"]}));",
+              "pm.test(\"Une seule commande consomme du stock\",()=>pm.expect(pm.response.json().stock).to.equal(Number(pm.collectionVariables.get(\"initialStock\"))-1));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{inventoryUrl}}/api/inventory/1"
+      }
+    },
+    {
+      "name": "Deconnexion",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"success\": {\"type\": \"boolean\", \"enum\": [true]}}, \"required\": [\"success\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{authUrl}}/api/auth/logout"
+      }
+    },
+    {
+      "name": "Session revoquee",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 401\", () => pm.response.to.have.status(401));",
+              "pm.test(\"Schema OpenAPI\", () => pm.response.to.have.jsonSchema({\"type\": \"object\", \"properties\": {\"message\": {\"type\": \"string\"}, \"requestId\": {\"type\": \"string\", \"format\": \"uuid\"}}, \"required\": [\"message\", \"requestId\"]}));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{authUrl}}/api/auth/me"
+      }
+    }
+  ]
+}

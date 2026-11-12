@@ -1,0 +1,22 @@
+{
+  "name": "msoa-lab3-api-contracts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "node scripts/start.mjs --backend-only",
+    "test": "npm run validate:contracts && npm run test:legacy && npm run test:api",
+    "test:legacy": "node tests/integration.mjs",
+    "test:api": "node scripts/test-api.mjs",
+    "validate:contracts": "node scripts/validate-contracts.mjs"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1",
+    "@apidevtools/swagger-parser": "^12.0.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

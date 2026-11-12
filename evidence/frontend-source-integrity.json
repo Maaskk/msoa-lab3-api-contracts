@@ -1,0 +1,117 @@
+{
+  "source": "LAB2_MSOA/application/src",
+  "unchanged_files": [
+    {
+      "file": "frontend/src/App.css",
+      "sha256": "6e25a776d3e8102da5bacb3cb99f4a5fc662a2e01e6143140671a556d28c3d5c"
+    },
+    {
+      "file": "frontend/src/index.css",
+      "sha256": "fda85fffe7f006d822fb9ab4e774b9e2b8fadffa73a3806b038dc0b8456cbbeb"
+    },
+    {
+      "file": "frontend/src/main.jsx",
+      "sha256": "814284ad7bb1ddff8dbf8c5dafee1b611f026482611a4d9a3b78b22c69b10c10"
+    },
+    {
+      "file": "frontend/src/App.jsx",
+      "sha256": "1d3b3faa5a4666353641d9b31cf6e43178b85d2858314d48bf560ec729dfdea6"
+    },
+    {
+      "file": "frontend/src/context/AuthContext.jsx",
+      "sha256": "175238817bc66933c1061f03ad499f99fcda73eb1a4fc97c86ad23ef173ab3f6"
+    },
+    {
+      "file": "frontend/src/context/CartContext.jsx",
+      "sha256": "f2948c2a1f63f5cdb15aee19d65905e77d9978c5868c42cb296cf3e0842e7476"
+    },
+    {
+      "file": "frontend/src/config/backend.js",
+      "sha256": "e1308c0c27b26db8f65419bcf9c3a026736e436029ada59b6d6702ad70fd3b51"
+    },
+    {
+      "file": "frontend/src/components/ProtectedRoute.jsx",
+      "sha256": "f94171b08229dc904fa85fb239a0b52982c59fa4b6c23db1592a02f092dbe470"
+    },
+    {
+      "file": "frontend/src/components/Navbar.jsx",
+      "sha256": "268b8cf5348d34fa93a2fde49d3c13effdcb9d44e3696205f3770593d945ba2d"
+    },
+    {
+      "file": "frontend/src/components/ProductCard.jsx",
+      "sha256": "3066d0b9ef36b741a26d5705c7c5752141a05661ab98bdd660b62745d89b1cd1"
+    },
+    {
+      "file": "frontend/src/components/ShipmentTracker.jsx",
+      "sha256": "096952b0deb76cba15b650b650a6a052b8a171592737fedb71fff94439e7a301"
+    },
+    {
+      "file": "frontend/src/data/products.js",
+      "sha256": "372ac7aad279a27bb0b1bd5b10ec0136dd98ce9b56f77ea73d30a91e670bb07f"
+    },
+    {
+      "file": "frontend/src/assets/hero.png",
+      "sha256": "881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c"
+    },
+    {
+      "file": "frontend/src/assets/vite.svg",
+      "sha256": "5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f"
+    },
+    {
+      "file": "frontend/src/assets/react.svg",
+      "sha256": "35ef61ed53b323ae94a16a8ec659b3d0af3880698791133f23b084085ab1c2e5"
+    },
+    {
+      "file": "frontend/src/pages/Products.jsx",
+      "sha256": "c244ae74f6212b5b7f16a886cf8c75441dbebba2d35cda6377c0783db3ecb634"
+    },
+    {
+      "file": "frontend/src/pages/Orders.jsx",
+      "sha256": "67e8fd876eefa797c42f021b4bec416cbd5149ba79d3b6b00adfc10997e8c52a"
+    },
+    {
+      "file": "frontend/src/pages/Login.jsx",
+      "sha256": "a1ebf9511c293f26c6343b437b48efed94633008ab0fd2b2854d38dd41e073f4"
+    },
+    {
+      "file": "frontend/src/pages/Cart.jsx",
+      "sha256": "e5267552a8a72095a29f03eba3509c3619e05e08aa31e3c2cb1564d3fb655f47"
+    },
+    {
+      "file": "frontend/src/pages/Checkout.jsx",
+      "sha256": "e51917525501e50f1c858bed0adc51f99e890e4deef903d99eb72608e6b64c1e"
+    },
+    {
+      "file": "frontend/src/pages/Account.jsx",
+      "sha256": "97e3d78315f254633a0602c9739362e5437be125333c5eab7152219cd87d7c33"
+    },
+    {
+      "file": "frontend/src/services/apiClient.js",
+      "sha256": "03def4192ca6742a3174291ed696171ec0e81d9db118b057672fad5947877abc"
+    },
+    {
+      "file": "frontend/src/services/paymentService.js",
+      "sha256": "a06f9bb6751ae9878865b1aabd2bfeb836971ea3879532c82e1903101bf28dc8"
+    },
+    {
+      "file": "frontend/src/services/shippingService.js",
+      "sha256": "334e15cdad89d5389b675c81b70448cd77b2ce5ff7f1665102aebe16458eba15"
+    },
+    {
+      "file": "frontend/src/services/inventoryService.js",
+      "sha256": "c3960bb47bf17beba45de665c19a599698332580c0ea508a45602f8b919cedf8"
+    },
+    {
+      "file": "frontend/src/services/orderService.js",
+      "sha256": "1c73636b0218485cd09d86188a7ac2f81e7225041c8cbba53f1e263f471e55e2"
+    },
+    {
+      "file": "frontend/src/services/authService.js",
+      "sha256": "880c1f3e643c8237edf34d07471c1c12db53da21316452c1e6da0323063c8134"
+    },
+    {
+      "file": "frontend/src/services/catalogService.js",
+      "sha256": "81ed5cc8f081edf9ccfc68afd21b0cbc1df6fc464b0bf6918c53a170c314b23e"
+    }
+  ]
+}

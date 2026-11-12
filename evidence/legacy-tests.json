@@ -1,0 +1,131 @@
+{
+  "at": "2026-11-12T11:18:17.970Z",
+  "node": "v24.12.0",
+  "results": [
+    {
+      "test": "Six independent services respond to health",
+      "status": "PASS",
+      "ms": 10
+    },
+    {
+      "test": "Register returns public user; duplicate email rejected",
+      "status": "PASS",
+      "ms": 49
+    },
+    {
+      "test": "Wrong password rejected",
+      "status": "PASS",
+      "ms": 42
+    },
+    {
+      "test": "Login and session introspection",
+      "status": "PASS",
+      "ms": 44
+    },
+    {
+      "test": "Catalog contracts and unknown product",
+      "status": "PASS",
+      "ms": 6
+    },
+    {
+      "test": "CORS preflight authorizes Vite",
+      "status": "PASS",
+      "ms": 1
+    },
+    {
+      "test": "Negative, zero and fractional quantities rejected",
+      "status": "PASS",
+      "ms": 8
+    },
+    {
+      "test": "Duplicate lines are aggregated before availability check",
+      "status": "PASS",
+      "ms": 2
+    },
+    {
+      "test": "Public callers cannot mutate stock or forge internal actions",
+      "status": "PASS",
+      "ms": 22
+    },
+    {
+      "test": "All-or-nothing stock reservation on shortage",
+      "status": "PASS",
+      "ms": 30
+    },
+    {
+      "test": "Order uses server catalog price and reserves stock",
+      "status": "PASS",
+      "ms": 14
+    },
+    {
+      "test": "Order cannot be paid via customer status PATCH",
+      "status": "PASS",
+      "ms": 5
+    },
+    {
+      "test": "Unpaid order cannot create shipment",
+      "status": "PASS",
+      "ms": 34
+    },
+    {
+      "test": "Payment succeeds and order becomes PAID",
+      "status": "PASS",
+      "ms": 70
+    },
+    {
+      "test": "Payment retry returns same record without double charge",
+      "status": "PASS",
+      "ms": 21
+    },
+    {
+      "test": "Shipment creation is idempotent and uses order address",
+      "status": "PASS",
+      "ms": 26
+    },
+    {
+      "test": "Cancellation refunds simulation, restores stock exactly once and cancels shipment",
+      "status": "PASS",
+      "ms": 29
+    },
+    {
+      "test": "Shipping progression enforces sequence and synchronizes order",
+      "status": "PASS",
+      "ms": 63
+    },
+    {
+      "test": "User ownership enforced across orders, payments and shipments",
+      "status": "PASS",
+      "ms": 56
+    },
+    {
+      "test": "Concurrent reservations cannot oversell",
+      "status": "PASS",
+      "ms": 76
+    },
+    {
+      "test": "Concurrent idempotency key creates one order",
+      "status": "PASS",
+      "ms": 20
+    },
+    {
+      "test": "Auth passwords are salted hashes, sessions are token hashes",
+      "status": "PASS",
+      "ms": 1
+    },
+    {
+      "test": "Service restart preserves persisted order and stock",
+      "status": "PASS",
+      "ms": 448
+    },
+    {
+      "test": "Catalog outage produces 503 without changing stock",
+      "status": "PASS",
+      "ms": 19
+    },
+    {
+      "test": "Logout revokes session",
+      "status": "PASS",
+      "ms": 5
+    }
+  ]
+}

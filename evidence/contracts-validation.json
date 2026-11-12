@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-12T11:18:16.140Z",
+  "results": [
+    {
+      "file": "auth.openapi.json",
+      "valid": true,
+      "operations": 5
+    },
+    {
+      "file": "catalog.openapi.json",
+      "valid": true,
+      "operations": 5
+    },
+    {
+      "file": "inventory.openapi.json",
+      "valid": true,
+      "operations": 5
+    },
+    {
+      "file": "orders.openapi.json",
+      "valid": true,
+      "operations": 7
+    },
+    {
+      "file": "payments.openapi.json",
+      "valid": true,
+      "operations": 6
+    },
+    {
+      "file": "shipping.openapi.json",
+      "valid": true,
+      "operations": 8
+    }
+  ],
+  "postmanRequests": 47
+}
