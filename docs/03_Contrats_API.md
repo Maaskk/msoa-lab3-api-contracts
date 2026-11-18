@@ -1,1323 +1,1323 @@
-# LAB 3 · Contrats API des six microservices
+# LAB 3 · API contracts for the six microservices
 
-Contrats de la plateforme e-commerce, présentés par opération dans le format du [Gist du cours](https://gist.github.com/BeattieM/324063512d166122ba5c). Les schémas et codes proviennent des spécifications OpenAPI du dépôt. Les routes historiques conservent le code de succès `200` pour rester compatibles avec le LAB 2.
+This reference documents the e-commerce API operations in the format of the [example from class](https://gist.github.com/BeattieM/324063512d166122ba5c). Each operation links to the corresponding schema. The legacy routes keep HTTP `200` for compatibility with LAB 2.
 
-[Authentication](#authentication) · [Catalog](#catalog) · [Inventory](#inventory) · [Orders](#orders) · [Payments](#payments) · [Shipping](#shipping) · [Schémas](#schémas)
+[Authentication](#authentication) · [Catalog](#catalog) · [Inventory](#inventory) · [Orders](#orders) · [Payments](#payments) · [Shipping](#shipping) · [Schemas](#schemas)
 
 ## Authentication
 
-**URL de base** · `http://127.0.0.1:8081` · [OpenAPI](../contracts/auth.openapi.json)
+**Base URL** · `http://127.0.0.1:8081` · [OpenAPI](../contracts/auth.openapi.json)
 
 ### `GET /health`
 
-Verifier que le processus repond
+Check that the service is running.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Health](#health)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Health](#health)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `POST /api/auth/register`
 
-Creer un compte
+Create an account.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [Register](#register).
+- Body `application/json` · required · [Register](#register).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
+- `Content-Type: application/json` for a JSON body.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [User](#user)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [User](#user)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `POST /api/auth/login`
 
-Ouvrir une session
+Start a session.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [Login](#login).
+- Body `application/json` · required · [Login](#login).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
+- `Content-Type: application/json` for a JSON body.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Session](#session)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Session](#session)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `GET /api/auth/me`
 
-Lire lidentite de la session
+Get the identity associated with the session.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `Authorization: Bearer <jeton>`.
+- `Authorization: Bearer <token>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [User](#user)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [User](#user)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `POST /api/auth/logout`
 
-Revoquer la session
+Revoke the session.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `Authorization: Bearer <jeton>`.
+- `Authorization: Bearer <token>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Success](#success)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Success](#success)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ## Catalog
 
-**URL de base** · `http://127.0.0.1:8082` · [OpenAPI](../contracts/catalog.openapi.json)
+**Base URL** · `http://127.0.0.1:8082` · [OpenAPI](../contracts/catalog.openapi.json)
 
 ### `GET /health`
 
-Verifier que le processus repond
+Check that the service is running.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Health](#health)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Health](#health)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `GET /products`
 
-Lister les produits avec prix numerique en MAD
+List products with numeric prices in MAD.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → tableau de [ProductV1](#productv1)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → array of [ProductV1](#productv1)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `GET /products/{productId}`
 
-Lire un produit historique en MAD
+Get a product using the legacy MAD price format.
 
 **URL Params**
 
-- `productId` · obligatoire · `integer` · min. 1 · Identifiant de la ressource
+- `productId` · required · `integer` · min. 1 · Resource ID.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [ProductV1](#productv1)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [ProductV1](#productv1)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `GET /api/v2/products`
 
-Lister les produits avec price.amount et price.currency
+List products with price.amount and price.currency.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- `currency` · facultatif · `string` · valeurs `MAD`, `EUR`, `USD` · Devise de la liste de prix fixe de demonstration. Aucun taux de change temps reel.
+- `currency` · optional · `string` · allowed values `MAD`, `EUR`, `USD` · Currency for the fixed demonstration price list.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → tableau de [ProductV2](#productv2)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → array of [ProductV2](#productv2)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `GET /api/v2/products/{productId}`
 
-Lire un produit avec prix structure
+Get a product with a structured price.
 
 **URL Params**
 
-- `productId` · obligatoire · `integer` · min. 1 · Identifiant de la ressource
+- `productId` · required · `integer` · min. 1 · Resource ID.
 
 **Data Params**
 
-- `currency` · facultatif · `string` · valeurs `MAD`, `EUR`, `USD` · Devise de la liste de prix fixe de demonstration. Aucun taux de change temps reel.
+- `currency` · optional · `string` · allowed values `MAD`, `EUR`, `USD` · Currency for the fixed demonstration price list.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [ProductV2](#productv2)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [ProductV2](#productv2)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ## Inventory
 
-**URL de base** · `http://127.0.0.1:8083` · [OpenAPI](../contracts/inventory.openapi.json)
+**Base URL** · `http://127.0.0.1:8083` · [OpenAPI](../contracts/inventory.openapi.json)
 
 ### `GET /health`
 
-Verifier que le processus repond
+Check that the service is running.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Health](#health)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Health](#health)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `GET /api/inventory/{productId}`
 
-Lire le stock disponible
+Get available stock.
 
 **URL Params**
 
-- `productId` · obligatoire · `integer` · min. 1 · Identifiant de la ressource
+- `productId` · required · `integer` · min. 1 · Resource ID.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Stock](#stock)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Stock](#stock)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `POST /api/inventory/check`
 
-Precontroler la disponibilite de toutes les lignes
+Check availability for all line items before reservation.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [StockRequest](#stockrequest).
+- Body `application/json` · required · [StockRequest](#stockrequest).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
+- `Content-Type: application/json` for a JSON body.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Availability](#availability)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Availability](#availability)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `POST /api/inventory/reserve`
 
-Reserver le stock atomiquement
+Reserve all stock in one transaction.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [Reservation](#reservation).
+- Body `application/json` · required · [Reservation](#reservation).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [ReservationResult](#reservationresult)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [ReservationResult](#reservationresult)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `POST /api/inventory/release`
 
-Liberer une reservation une seule fois
+Release a reservation at most once.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [Release](#release).
+- Body `application/json` · required · [Release](#release).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Success](#success)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Success](#success)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ## Orders
 
-**URL de base** · `http://127.0.0.1:8084` · [OpenAPI](../contracts/orders.openapi.json)
+**Base URL** · `http://127.0.0.1:8084` · [OpenAPI](../contracts/orders.openapi.json)
 
 ### `GET /health`
 
-Verifier que le processus repond
+Check that the service is running.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Health](#health)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Health](#health)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `GET /api/orders`
 
-Lister les commandes du proprietaire
+List orders for the owner.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- `userId` · facultatif · `string` · Doit correspondre au proprietaire sauf appel interne
+- `userId` · optional · `string` · Must match the owner for external requests.
 
 **Headers**
 
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → tableau de [Order](#order)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → array of [Order](#order)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `POST /api/orders`
 
-Creer une commande en MAD avec prix autoritaire et reservation
+Create an order in MAD using Catalog prices and reserve stock.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [OrderRequest](#orderrequest).
+- Body `application/json` · required · [OrderRequest](#orderrequest).
 
 **Headers**
 
-- `Idempotency-Key` · facultatif · `string` · longueur max. 149 · Meme cle et meme contenu : meme commande pour un utilisateur
-- `Content-Type: application/json` pour le corps JSON.
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Idempotency-Key` · optional · `string` · maximum length 149 · For one user, the same key and request body identify the same order.
+- `Content-Type: application/json` for a JSON body.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Order](#order)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Order](#order)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `GET /api/orders/{orderId}`
 
-Lire une commande autorisee
+Get an order the caller is allowed to access.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Order](#order)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Order](#order)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `PATCH /api/orders/{orderId}/status`
 
-Confirmer un etat deja atteint ; le client ne peut pas forcer une transition
+Confirm an order state that has already been reached. Clients cannot force a transition.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [OrderStatus](#orderstatus).
+- Body `application/json` · required · [OrderStatus](#orderstatus).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Order](#order)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Order](#order)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `POST /api/orders/{orderId}/cancel`
 
-Annuler avant expedition, rembourser et liberer le stock
+Cancel before shipping, refund any payment, and release stock.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Order](#order)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Order](#order)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `POST /internal/orders/{orderId}/action`
 
-Coordonner paiement, transport ou annulation
+Coordinate payment, shipping, or cancellation.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [OrderAction](#orderaction).
+- Body `application/json` · required · [OrderAction](#orderaction).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → un seul des schémas suivants, [Order](#order), [Payment](#payment), [Shipment](#shipment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → exactly one of [Order](#order), [Payment](#payment), [Shipment](#shipment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ## Payments
 
-**URL de base** · `http://127.0.0.1:8085` · [OpenAPI](../contracts/payments.openapi.json)
+**Base URL** · `http://127.0.0.1:8085` · [OpenAPI](../contracts/payments.openapi.json)
 
 ### `GET /health`
 
-Verifier que le processus repond
+Check that the service is running.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Health](#health)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Health](#health)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `GET /api/payments`
 
-Lister les paiements de lutilisateur
+List the user’s payments.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → tableau de [Payment](#payment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → array of [Payment](#payment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `POST /api/payments`
 
-Simuler un paiement avec le montant de la commande
+Simulate payment for the order total.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [PaymentRequest](#paymentrequest).
+- Body `application/json` · required · [PaymentRequest](#paymentrequest).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Payment](#payment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Payment](#payment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `GET /api/payments/order/{orderId}`
 
-Lire le paiement dune commande autorisee
+Get the payment for an order the caller is allowed to access.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Payment](#payment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Payment](#payment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `POST /internal/payments/{orderId}/capture`
 
-Capturer un paiement simule une seule fois
+Capture a simulated payment once.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [Capture](#capture).
+- Body `application/json` · required · [Capture](#capture).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Payment](#payment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Payment](#payment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `POST /internal/payments/{orderId}/refund`
 
-Rembourser un paiement simule de facon idempotente
+Refund a simulated payment idempotently.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `X-Internal-Key: <clé interne>`.
+- `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Success](#success)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Success](#success)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ## Shipping
 
-**URL de base** · `http://127.0.0.1:8086` · [OpenAPI](../contracts/shipping.openapi.json)
+**Base URL** · `http://127.0.0.1:8086` · [OpenAPI](../contracts/shipping.openapi.json)
 
 ### `GET /health`
 
-Verifier que le processus repond
+Check that the service is running.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-Aucun en-tête de requête obligatoire.
+No required request headers.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Health](#health)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Health](#health)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `GET /api/shipments`
 
-Lister les expeditions de lutilisateur
+List the user’s shipments.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → tableau de [Shipment](#shipment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → array of [Shipment](#shipment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `POST /api/shipments`
 
-Preparer une expedition pour une commande payee
+Prepare shipment for a paid order.
 
 **URL Params**
 
-Aucun.
+None.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [ShipmentRequest](#shipmentrequest).
+- Body `application/json` · required · [ShipmentRequest](#shipmentrequest).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Shipment](#shipment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Shipment](#shipment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `GET /api/shipments/order/{orderId}`
 
-Lire lexpedition dune commande autorisee
+Get the shipment for an order the caller is allowed to access.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Shipment](#shipment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Shipment](#shipment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `PATCH /api/shipments/{shipmentId}/status`
 
-Faire progresser la livraison dans lordre autorise
+Advance the shipment through an allowed transition.
 
 **URL Params**
 
-- `shipmentId` · obligatoire · `string` · Identifiant de la ressource
+- `shipmentId` · required · `string` · Resource ID.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [ShipmentStatus](#shipmentstatus).
+- Body `application/json` · required · [ShipmentStatus](#shipmentstatus).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `Authorization: Bearer <jeton>` ou `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `Authorization: Bearer <token>` or `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Shipment](#shipment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Shipment](#shipment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **401** · Session absente ou invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
-- **503** · Service dependant indisponible · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **401** · Missing or invalid session. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
+- **503** · A dependency is unavailable. · Body application/json → [Error](#error)
 
 ### `POST /internal/shipments/{orderId}/prepare`
 
-Preparer une expedition idempotente
+Prepare a shipment idempotently.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [Prepare](#prepare).
+- Body `application/json` · required · [Prepare](#prepare).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Shipment](#shipment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Shipment](#shipment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `POST /internal/shipments/{orderId}/advance`
 
-Valider une transition de transport
+Validate a shipping transition.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-- Corps `application/json` · obligatoire · [Advance](#advance).
+- Body `application/json` · required · [Advance](#advance).
 
 **Headers**
 
-- `Content-Type: application/json` pour le corps JSON.
-- `X-Internal-Key: <clé interne>`.
+- `Content-Type: application/json` for a JSON body.
+- `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → [Shipment](#shipment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → [Shipment](#shipment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **400** · Entree ou JSON invalide · Corps application/json → [Error](#error)
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **404** · Ressource inexistante · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **413** · Corps trop volumineux · Corps application/json → [Error](#error)
-- **415** · Content-Type doit etre application/json · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **400** · Invalid input or malformed JSON. · Body application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **404** · Resource not found. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **413** · Request body too large. · Body application/json → [Error](#error)
+- **415** · Content-Type must be application/json. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
 ### `POST /internal/shipments/{orderId}/cancel`
 
-Annuler une preparation avant expedition
+Cancel preparation before shipment.
 
 **URL Params**
 
-- `orderId` · obligatoire · `string` · Identifiant de la ressource
+- `orderId` · required · `string` · Resource ID.
 
 **Data Params**
 
-Aucun.
+None.
 
 **Headers**
 
-- `X-Internal-Key: <clé interne>`.
+- `X-Internal-Key: <internal key>`.
 
 **Success Response**
 
-- **200** · Succes. 200 est conserve pour les contrats herites du LAB2. · Corps application/json → un seul des schémas suivants, [Success](#success), [Shipment](#shipment)
-  - En-tête `X-Request-Id` · `string` (format `uuid`).
+- **200** · OK. The success status remains 200 for LAB 2 compatibility. · Body application/json → exactly one of [Success](#success), [Shipment](#shipment)
+  - Response header `X-Request-Id` · `string` (format `uuid`).
 
 **Error Response**
 
-- **403** · Acteur non autorise · Corps application/json → [Error](#error)
-- **409** · Conflit metier ou prix indisponible · Corps application/json → [Error](#error)
-- **500** · Erreur interne · Corps application/json → [Error](#error)
+- **403** · The caller does not have permission. · Body application/json → [Error](#error)
+- **409** · Business rule conflict or unavailable price. · Body application/json → [Error](#error)
+- **500** · Internal server error. · Body application/json → [Error](#error)
 
-## Schémas
+## Schemas
 
-Les champs sont décrits avec leur type, leur format et leurs contraintes. Les tableaux et les objets référencés sont détaillés dans les sections correspondantes.
+The tables specify each field’s type, format, and constraints. Referenced schemas describe nested objects and array elements.
 
 ### Advance
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `status` | Obligatoire | `string` · valeurs `SHIPPED`, `IN_TRANSIT`, `DELIVERED` |
+| `status` | Required | `string` · allowed values `SHIPPED`, `IN_TRANSIT`, `DELIVERED` |
 
 ### Availability
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `available` | Obligatoire | `boolean` |
+| `available` | Required | `boolean` |
 
 ### Capture
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `order` | Obligatoire | [Order](#order) |
-| `method` | Obligatoire | `string` · valeurs `CARD`, `CASH` |
+| `order` | Required | [Order](#order) |
+| `method` | Required | `string` · allowed values `CARD`, `CASH` |
 
 ### Customer
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `name` | Obligatoire | `string` · longueur min. 1 |
-| `address` | Obligatoire | `string` · longueur min. 1 |
-| `city` | Obligatoire | `string` · longueur min. 1 |
+| `name` | Required | `string` · minimum length 1 |
+| `address` | Required | `string` · minimum length 1 |
+| `city` | Required | `string` · minimum length 1 |
 
 ### Error
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `message` | Obligatoire | `string` |
-| `requestId` | Obligatoire | `string` (format `uuid`) |
+| `message` | Required | `string` |
+| `requestId` | Required | `string` (format `uuid`) |
 
 ### Health
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `service` | Obligatoire | `string` |
-| `status` | Obligatoire | `string` · valeurs `UP` |
+| `service` | Required | `string` |
+| `status` | Required | `string` · allowed values `UP` |
 
 ### Line
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `productId` | Obligatoire | `integer` · min. 1 |
-| `quantity` | Obligatoire | `integer` · min. 1 · max. 10000 |
+| `productId` | Required | `integer` · min. 1 |
+| `quantity` | Required | `integer` · min. 1 · max. 10000 |
 
 ### Login
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `email` | Obligatoire | `string` (format `email`) |
-| `password` | Obligatoire | `string` |
+| `email` | Required | `string` (format `email`) |
+| `password` | Required | `string` |
 
 ### Money
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `amount` | Obligatoire | `number` · min. 0 |
-| `currency` | Obligatoire | `string` · valeurs `MAD`, `EUR`, `USD` |
+| `amount` | Required | `number` · min. 0 |
+| `currency` | Required | `string` · allowed values `MAD`, `EUR`, `USD` |
 
-Les champs supplémentaires sont refusés.
+Additional fields are rejected.
 
 ### Order
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `id` | Obligatoire | `string` |
-| `userId` | Obligatoire | `string` |
-| `customer` | Obligatoire | [Customer](#customer) |
-| `items` | Obligatoire | tableau de [PricedLine](#pricedline) |
-| `total` | Obligatoire | `number` · min. 0 |
-| `status` | Obligatoire | `string` · valeurs `CREATING`, `REJECTED`, `PENDING_PAYMENT`, `PAID`, `CANCELLING`, `CANCELLED`, `SHIPPED`, `DELIVERED` |
-| `createdAt` | Obligatoire | `string` (format `date-time`) |
+| `id` | Required | `string` |
+| `userId` | Required | `string` |
+| `customer` | Required | [Customer](#customer) |
+| `items` | Required | array of [PricedLine](#pricedline) |
+| `total` | Required | `number` · min. 0 |
+| `status` | Required | `string` · allowed values `CREATING`, `REJECTED`, `PENDING_PAYMENT`, `PAID`, `CANCELLING`, `CANCELLED`, `SHIPPED`, `DELIVERED` |
+| `createdAt` | Required | `string` (format `date-time`) |
 
 ### OrderAction
 
-un seul des schémas suivants, `object`, `object`.
+exactly one of `object`, `object`.
 
 ### OrderRequest
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `userId` | Obligatoire | `string` |
-| `customer` | Obligatoire | [Customer](#customer) |
-| `items` | Obligatoire | tableau de [Line](#line) · nombre min. 1 · nombre max. 100 |
+| `userId` | Required | `string` |
+| `customer` | Required | [Customer](#customer) |
+| `items` | Required | array of [Line](#line) · minimum items 1 · maximum items 100 |
 
 ### OrderStatus
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `status` | Obligatoire | `string` · valeurs `CREATING`, `REJECTED`, `PENDING_PAYMENT`, `PAID`, `CANCELLING`, `CANCELLED`, `SHIPPED`, `DELIVERED` |
+| `status` | Required | `string` · allowed values `CREATING`, `REJECTED`, `PENDING_PAYMENT`, `PAID`, `CANCELLING`, `CANCELLED`, `SHIPPED`, `DELIVERED` |
 
 ### Payment
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `id` | Obligatoire | `string` |
-| `orderId` | Obligatoire | `string` |
-| `userId` | Obligatoire | `string` |
-| `amount` | Obligatoire | `number` · min. 0 |
-| `method` | Obligatoire | `string` · valeurs `CARD`, `CASH` |
-| `status` | Obligatoire | `string` · valeurs `SUCCESS`, `REFUNDED` |
-| `createdAt` | Obligatoire | `string` (format `date-time`) |
+| `id` | Required | `string` |
+| `orderId` | Required | `string` |
+| `userId` | Required | `string` |
+| `amount` | Required | `number` · min. 0 |
+| `method` | Required | `string` · allowed values `CARD`, `CASH` |
+| `status` | Required | `string` · allowed values `SUCCESS`, `REFUNDED` |
+| `createdAt` | Required | `string` (format `date-time`) |
 
 ### PaymentRequest
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `orderId` | Obligatoire | `string` |
-| `method` | Obligatoire | `string` · valeurs `CARD`, `CASH` |
+| `orderId` | Required | `string` |
+| `method` | Required | `string` · allowed values `CARD`, `CASH` |
 
 ### Prepare
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `order` | Obligatoire | [Order](#order) |
+| `order` | Required | [Order](#order) |
 
 ### PricedLine
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `productId` | Obligatoire | `integer` · min. 1 |
-| `quantity` | Obligatoire | `integer` · min. 1 |
-| `name` | Obligatoire | `string` |
-| `price` | Obligatoire | `number` · min. 0 |
+| `productId` | Required | `integer` · min. 1 |
+| `quantity` | Required | `integer` · min. 1 |
+| `name` | Required | `string` |
+| `price` | Required | `number` · min. 0 |
 
 ### ProductV1
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `id` | Obligatoire | `integer` · min. 1 |
-| `name` | Obligatoire | `string` |
-| `category` | Obligatoire | `string` |
-| `image` | Obligatoire | `string` |
-| `description` | Obligatoire | `string` |
-| `price` | Obligatoire | `number` · min. 0 |
+| `id` | Required | `integer` · min. 1 |
+| `name` | Required | `string` |
+| `category` | Required | `string` |
+| `image` | Required | `string` |
+| `description` | Required | `string` |
+| `price` | Required | `number` · min. 0 |
 
 ### ProductV2
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `id` | Obligatoire | `integer` · min. 1 |
-| `name` | Obligatoire | `string` |
-| `category` | Obligatoire | `string` |
-| `image` | Obligatoire | `string` |
-| `description` | Obligatoire | `string` |
-| `price` | Obligatoire | [Money](#money) |
+| `id` | Required | `integer` · min. 1 |
+| `name` | Required | `string` |
+| `category` | Required | `string` |
+| `image` | Required | `string` |
+| `description` | Required | `string` |
+| `price` | Required | [Money](#money) |
 
 ### Register
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `name` | Obligatoire | `string` · longueur min. 1 |
-| `email` | Obligatoire | `string` (format `email`) |
-| `password` | Obligatoire | `string` · longueur min. 6 |
+| `name` | Required | `string` · minimum length 1 |
+| `email` | Required | `string` (format `email`) |
+| `password` | Required | `string` · minimum length 6 |
 
 ### Release
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `items` | Obligatoire | tableau de [Line](#line) · nombre min. 1 · nombre max. 100 |
-| `reservationId` | Obligatoire | `string` · longueur max. 149 |
+| `items` | Required | array of [Line](#line) · minimum items 1 · maximum items 100 |
+| `reservationId` | Required | `string` · maximum length 149 |
 
 ### Reservation
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `items` | Obligatoire | tableau de [Line](#line) · nombre min. 1 · nombre max. 100 |
-| `reservationId` | Facultatif | `string` · longueur max. 149 |
+| `items` | Required | array of [Line](#line) · minimum items 1 · maximum items 100 |
+| `reservationId` | Optional | `string` · maximum length 149 |
 
 ### ReservationResult
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `success` | Obligatoire | `boolean` · valeurs `True` |
-| `reservationId` | Obligatoire | `string` |
+| `success` | Required | `boolean` · allowed values `true` |
+| `reservationId` | Required | `string` |
 
 ### Session
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `user` | Obligatoire | [User](#user) |
-| `token` | Obligatoire | `string` |
+| `user` | Required | [User](#user) |
+| `token` | Required | `string` |
 
 ### Shipment
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `id` | Obligatoire | `string` |
-| `orderId` | Obligatoire | `string` |
-| `userId` | Obligatoire | `string` |
-| `address` | Obligatoire | [Customer](#customer) |
-| `trackingNumber` | Obligatoire | `string` |
-| `status` | Obligatoire | `string` · valeurs `PREPARING`, `SHIPPED`, `IN_TRANSIT`, `DELIVERED`, `CANCELLED` |
-| `createdAt` | Obligatoire | `string` (format `date-time`) |
-| `updatedAt` | Obligatoire | `string` (format `date-time`) |
+| `id` | Required | `string` |
+| `orderId` | Required | `string` |
+| `userId` | Required | `string` |
+| `address` | Required | [Customer](#customer) |
+| `trackingNumber` | Required | `string` |
+| `status` | Required | `string` · allowed values `PREPARING`, `SHIPPED`, `IN_TRANSIT`, `DELIVERED`, `CANCELLED` |
+| `createdAt` | Required | `string` (format `date-time`) |
+| `updatedAt` | Required | `string` (format `date-time`) |
 
 ### ShipmentRequest
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `orderId` | Obligatoire | `string` |
-| `address` | Obligatoire | [Customer](#customer) |
+| `orderId` | Required | `string` |
+| `address` | Required | [Customer](#customer) |
 
 ### ShipmentStatus
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `status` | Obligatoire | `string` · valeurs `SHIPPED`, `IN_TRANSIT`, `DELIVERED`, `CANCELLED` |
+| `status` | Required | `string` · allowed values `SHIPPED`, `IN_TRANSIT`, `DELIVERED`, `CANCELLED` |
 
 ### Stock
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `productId` | Obligatoire | `integer` · min. 1 |
-| `stock` | Obligatoire | `integer` · min. 0 |
+| `productId` | Required | `integer` · min. 1 |
+| `stock` | Required | `integer` · min. 0 |
 
 ### StockRequest
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `items` | Obligatoire | tableau de [Line](#line) · nombre min. 1 · nombre max. 100 |
+| `items` | Required | array of [Line](#line) · minimum items 1 · maximum items 100 |
 
 ### Success
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `success` | Obligatoire | `boolean` · valeurs `True` |
+| `success` | Required | `boolean` · allowed values `true` |
 
 ### User
 
-| Champ | Présence | Type et contraintes |
+| Field | Presence | Type and constraints |
 |---|---|---|
-| `id` | Obligatoire | `string` |
-| `name` | Obligatoire | `string` |
-| `email` | Obligatoire | `string` (format `email`) |
-| `role` | Obligatoire | `string` · valeurs `CUSTOMER`, `SYSTEM` |
+| `id` | Required | `string` |
+| `name` | Required | `string` |
+| `email` | Required | `string` (format `email`) |
+| `role` | Required | `string` · allowed values `CUSTOMER`, `SYSTEM` |
 
-## Exemple de réponse d’erreur
+## Example error response
 
-La réponse d’erreur utilise le schéma [Error](#error). Le message varie selon la cause.
+Error responses use the [Error](#error) schema. For example, `GET /api/orders/{orderId}` returns HTTP `404` with this body for a missing order:
 
 ```json
 {
-  "message": "<message d’erreur>",
+  "message": "Order not found",
   "requestId": "30ea4adf-8768-4835-affa-737c2b32d982"
 }
 ```
 
-## Vérification
+## Verification
 
-- [Collection Postman](../postman/LAB3.postman_collection.json)
-- [Résultats Newman](../evidence/postman-results.json)
+- [Postman collection](../postman/LAB3.postman_collection.json)
+- [Newman results](../evidence/postman-results.json)

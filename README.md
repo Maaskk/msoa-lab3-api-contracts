@@ -1,24 +1,22 @@
 # LAB 3 - Designing an API Contract
 
-Microservice-oriented Architectures, Master Big Data & Data Science.
-Professeur : Zouheir BANOU.
+Microservice-oriented Architectures · Master Big Data & Data Science · Professor Zouheir BANOU
 
-Ce dépôt poursuit l'application e-commerce du LAB2. Il contient les six services REST, leurs contrats OpenAPI, une collection Postman exécutable et une évolution compatible du prix du catalogue.
+This project extends the LAB 2 e-commerce application with six REST API contracts, a runnable Postman collection, and a backward-compatible Catalog price format.
 
-## Remise
+## Deliverables
 
-- [Réponses aux questions 1 à 6](docs/01_Analyse_et_Decisions.md).
-- [Répertoire des 36 opérations REST](docs/02_Endpoints.md).
-- [Contrats des six services dans le format du Gist](docs/03_Contrats_API.md).
-- [Six contrats OpenAPI](contracts/).
-- [Collection Postman](postman/LAB3.postman_collection.json) et [environnement local](postman/Local.postman_environment.json).
-- [Résultats Postman réellement exécutés](evidence/postman-results.json).
-- [Preuve de compatibilité des prix](evidence/pricing-compatibility.json).
-- [Rapport PDF](reports/LAB3_Rapport_Groupe.pdf).
+- [English API contract for the six services](docs/03_Contrats_API.md)
+- [Six OpenAPI 3.0.3 specifications](contracts/)
+- [Answers to questions 1–6](docs/01_Analyse_et_Decisions.md)
+- [Index of the 36 REST operations](docs/02_Endpoints.md)
+- [Postman collection](postman/LAB3.postman_collection.json) and [local environment](postman/Local.postman_environment.json)
+- [Newman results](evidence/postman-results.json) and [price compatibility evidence](evidence/pricing-compatibility.json)
+- [Group report](reports/LAB3_Rapport_Groupe.pdf)
 
-## Démarrer et vérifier
+## Run and verify
 
-Prérequis : Node.js 24 ou plus récent et npm.
+Use Node.js 24 or newer and npm.
 
 ```sh
 npm ci
@@ -26,20 +24,20 @@ npm test
 npm start
 ```
 
-Arrêter les services avant npm test : les tests utilisent les mêmes ports, mais des bases temporaires isolées. npm start lance les six APIs et génère une clé interne commune en mémoire. Ctrl+C arrête les processus.
+Stop any running services before `npm test`. The tests use the same ports and isolated temporary databases. `npm start` starts the six APIs and generates a shared internal key in memory. Ctrl+C stops the processes.
 
-| Service | Port | Responsabilité attribuée |
-|---|---|---|
-| Orders | 8084 | ASHAD Ossama |
+| Service | Port | Assigned owner |
+|---|---:|---|
 | Authentication | 8081 | Elhaddaji Hamza |
 | Catalog | 8082 | Sekkat Israa |
 | Inventory | 8083 | Mouhcine Ayar |
+| Orders | 8084 | ASHAD Ossama |
 | Payments | 8085 | Rahil Msouhli |
 | Shipping | 8086 | Karany Mohamed Amine |
 
-Chaque API expose GET /health. Les données de démonstration persistent dans backend/data lors du lancement normal. Les bases et sessions locales ne sont pas déposées sur GitHub.
+Each service exposes `GET /health`. During normal operation, demo data is stored in `backend/data`.
 
-Le frontend du LAB2 est conservé dans frontend/. Pour le lancer dans un autre terminal :
+The supplied React frontend lives in `frontend/`. To start it, run the following in another terminal:
 
 ```sh
 cd frontend
@@ -47,9 +45,9 @@ npm ci
 npm run dev
 ```
 
-Compte pédagogique du frontend : demo@msoa.shop / demo123. Ce compte sert uniquement à la démonstration locale. Les tests Postman créent leur propre utilisateur temporaire.
+The local demo account is `demo@msoa.shop` with password `demo123`. The Postman tests register a temporary user.
 
-## Ancienne et nouvelle représentation
+## Legacy and v2 price formats
 
 ```sh
 curl http://127.0.0.1:8082/products/1
@@ -57,13 +55,11 @@ curl http://127.0.0.1:8082/api/v2/products/1
 curl 'http://127.0.0.1:8082/api/v2/products/1?currency=EUR'
 ```
 
-La route historique renvoie price: 8499, toujours en MAD. La route v2 renvoie price: { amount: 8499, currency: "MAD" }. Elle accepte aussi EUR et USD à partir de listes de prix fixes de démonstration. Une devise non prise en charge produit 400.
+The legacy route returns `price: 8499` as a number in MAD. The v2 route returns `price: { amount: 8499, currency: "MAD" }` by default and accepts EUR and USD using fixed demonstration price lists. An unsupported currency returns HTTP 400. Existing frontend and Orders flows continue using MAD.
 
-Le changement est volontairement limité au contrat Catalog : le frontend existant et Orders continuent à utiliser la représentation historique en MAD. Le paiement dans une devise étrangère n'est pas annoncé comme implémenté. Les montants EUR/USD ne sont ni des taux de change actuels ni des tarifs commerciaux réels.
+## Postman and automated checks
 
-## Importer dans Postman
-
-Importer les deux fichiers du dossier postman, sélectionner l'environnement local, lancer npm start, puis exécuter la collection complète dans l'ordre. La connexion renseigne automatiquement le jeton et les identifiants nécessaires. Pour un résultat reproductible sans modifier les données de démonstration, préférer npm run test:api : il démarre ses propres services avec une base temporaire.
+Import the collection and the local environment, select that environment, start the APIs with `npm start`, and run the collection in order. Login populates the token and identifiers automatically.
 
 ```sh
 npm run validate:contracts
@@ -71,12 +67,8 @@ npm run test:legacy
 npm run test:api
 ```
 
-Le premier contrôle valide les six documents OpenAPI. Le second reprend les 25 scénarios du LAB2. Le troisième exécute Newman et vérifie les réponses réelles contre les schémas, ainsi que le cas de rupture du prix et les erreurs 400/415.
+These commands validate the six specifications, rerun the 25 LAB 2 integration scenarios, and use Newman to exercise 47 requests and 106 assertions. They include success and error schemas and both price formats.
 
-## Lecture et limites
+## Scope
 
-Les schémas détaillent les champs obligatoires, paramètres, formats, en-têtes, autorisations et codes HTTP. Les opérations héritées conservent leur code de succès 200 pour ne pas modifier le contrat du LAB2.
-
-Ce prototype utilise HTTP natif, SQLite et une instance par service. Les paiements et le transport sont simulés. Les verrous Orders sont locaux au processus ; aucune transaction distribuée ni reprise automatique après chaque panne n'est fournie. Le backend ne présente pas de paiement bancaire réel.
-
-Le frontend de référence provient de ZOUHEIRBN/MSOA-E-com-Demo, commit baee7d79828a4883c8c7158e41ac4b1a878bf12a. Les responsabilités du tableau correspondent à la répartition du groupe et ne prétendent pas constituer un historique de contributions individuelles.
+The project uses Node.js, HTTP, and SQLite with one instance per service. Payment and shipping are simulated. Orders uses process-local locks. Cross-service consistency relies on idempotent operations and compensating actions. The frontend is based on [ZOUHEIRBN/MSOA-E-com-Demo](https://github.com/ZOUHEIRBN/MSOA-E-com-Demo/tree/baee7d79828a4883c8c7158e41ac4b1a878bf12a).
