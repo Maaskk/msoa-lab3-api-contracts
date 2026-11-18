@@ -9,6 +9,7 @@ Ce dépôt poursuit l'application e-commerce du LAB2. Il contient les six servic
 
 - [Réponses aux questions 1 à 6](docs/01_Analyse_et_Decisions.md).
 - [Répertoire des 36 opérations REST](docs/02_Endpoints.md).
+- [Contrats des six services dans le format du Gist](docs/03_Contrats_API.md).
 - [Six contrats OpenAPI](contracts/).
 - [Collection Postman](postman/LAB3.postman_collection.json) et [environnement local](postman/Local.postman_environment.json).
 - [Résultats Postman réellement exécutés](evidence/postman-results.json).
